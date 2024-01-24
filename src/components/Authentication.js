@@ -10,10 +10,10 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/UserSlice";
+import { AUTH_BG } from "../utils/constants";
 
 const Authentication = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isSignInForm, setIsSigninForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const name = useRef(null);
@@ -39,7 +39,6 @@ const Authentication = () => {
           }).then(() => {
             const { uid, email, displayName } = auth.currentUser;
             dispatch(addUser({ uid, email, displayName }));
-            navigate("/browse");
           });
         })
         .catch((error) => {
@@ -52,15 +51,11 @@ const Authentication = () => {
         auth,
         email.current.value,
         password.current.value
-      )
-        .then((userCredentials) => {
-          navigate("/browse");
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + ":-" + errorMessage);
-        });
+      ).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setErrorMessage(errorCode + ":-" + errorMessage);
+      });
     }
   };
 
@@ -68,11 +63,7 @@ const Authentication = () => {
     <div>
       <Header />
       <div className="absolute -z-10 h-screen min-h-screen opacity-97">
-        <img
-          className="min-h-full min-w-full"
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/16006346-87f9-4226-bc25-a1fb346a2b0c/9662d0fd-0547-4665-b887-771617268815/IN-en-20240115-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
-          alt="background"
-        />
+        <img className="min-h-full min-w-full" src={AUTH_BG} alt="background" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
