@@ -6,3 +6,15 @@ export const NETFLIX_LOGO =
 
 export const DEFAULT_AVATAR_URL =
   "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
+
+export const API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNmY2ZGJjMjg3OTQxOWUzZTlkMjE4MDMzNDU4NjY0MSIsInN1YiI6IjY1YjEzZjg2YjlhMGJkMDE5MzQ1MjhhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mn5DfDsj15XEzBltT18viCwbr6ravBfKcJnX2uNJYko",
+  },
+};
+
+export const GET_MOVIE_URL =
+  "https://api.themoviedb.org/3/movie/now_playing?page=1";
