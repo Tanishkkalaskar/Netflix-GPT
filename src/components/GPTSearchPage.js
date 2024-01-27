@@ -6,7 +6,7 @@ import GPTSearchBar from "./GPTSearchBar";
 const GPTSearchPage = () => {
   return (
     <div>
-      <div className="absolute -z-10 h-screen min-h-screen opacity-97">
+      <div className="fixed -z-10 h-screen min-h-screen opacity-97">
         <img className="min-h-full min-w-full" src={AUTH_BG} alt="background" />
       </div>
       <GPTSearchBar></GPTSearchBar>
