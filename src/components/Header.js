@@ -12,11 +12,13 @@ import {
   SUPPORTED_LANGUAGES,
 } from "../utils/constants";
 import { toggleGPTSearchView } from "../utils/GPTSlice";
+import language from "../utils/LanguagesConstants";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const langKey = useSelector((store) => store.config.language);
   const showGPTSearchPage = useSelector((store) => store.gpt.showGPTSearchPage);
 
   const handleSignOut = () => {
@@ -53,10 +55,23 @@ const Header = () => {
   }, []);
 
   return (
-    <div className="absolute w-full px-4 flex justify-between align-middle bg-gradient-to-b from-black z-10">
-      <img className="w-52" src={NETFLIX_LOGO} alt="Netflix-logo" />
+    <div className="absolute w-full px-4 flex flex-col md:flex-row md:justify-between md:align-middle bg-gradient-to-b from-black z-10">
+      <div className="flex justify-between items-center">
+        <img
+          className="w-[40%] md:w-52 md:mx-0"
+          src={NETFLIX_LOGO}
+          alt="Netflix-logo"
+        />
+        {user && (
+          <div className="md:hidden flex flex-col text-sm text-white">
+            {user.displayName}
+            <button onClick={handleSignOut}>(Sign out)</button>
+          </div>
+        )}
+      </div>
+
       {user && (
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 justify-between items-center">
           <div>
             {showGPTSearchPage && (
               <select
@@ -74,20 +89,22 @@ const Header = () => {
           </div>
 
           <button
-            className="bg-purple-600 text-white px-4 py-2 rounded-md"
+            className="bg-purple-600 text-sm md:text-l text-white px-4 py-2 rounded-md"
             onClick={handleGPTSearch}
           >
-            GPT search
+            {showGPTSearchPage ? language[langKey].homepage : "GPT search"}
           </button>
-          <img
-            className="w-16 my-2
+          <div className="hidden md:flex md:items-center">
+            <img
+              className="w-16 my-2
           "
-            src={DEFAULT_AVATAR_URL}
-            alt="profile"
-          />
-          <div className="flex flex-col text-white">
-            {user.displayName}
-            <button onClick={handleSignOut}>(Sign out)</button>
+              src={DEFAULT_AVATAR_URL}
+              alt="profile"
+            />
+            <div className="flex flex-col text-sm md:text-l text-white">
+              {user.displayName}
+              <button onClick={handleSignOut}>(Sign out)</button>
+            </div>
           </div>
         </div>
       )}

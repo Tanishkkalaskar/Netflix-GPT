@@ -62,45 +62,52 @@ const Authentication = () => {
   return (
     <div>
       <Header />
-      <div className="absolute -z-10 h-screen min-h-screen opacity-97">
-        <img className="min-h-full min-w-full" src={AUTH_BG} alt="background" />
+      <div className="absolute">
+        <img
+          className="h-screen w-screen object-cover"
+          src={AUTH_BG}
+          alt="background"
+        />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-3/12 p-12 my-64 mx-auto left-0 right-0 bg-black text-white rounded-lg bg-opacity-80"
+        className="absolute w-full md:w-3/12 p-12 my-32 md:my-64 md:mx-auto md:left-0 md:right-0 bg-black text-white rounded-lg bg-opacity-80"
       >
-        <h1 className="text-4xl my-2">
+        <h1 className="text-xl md:text-4xl my-2">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
           <input
             ref={name}
-            className="w-full bg-gray-700 border-black my-4 p-4"
+            className="w-full bg-gray-700 border-black my-3 p-2 md:my-4 md:p-4"
             type="text"
             placeholder="Full name"
           />
         )}
         <input
           ref={email}
-          className="w-full bg-gray-700 border-black my-4 p-4"
+          className="w-full bg-gray-700 border-black my-3 p-2 md:my-4 md:p-4"
           type="email"
           placeholder="Email"
         />
 
         <input
           ref={password}
-          className="w-full bg-gray-700 border-black my-4 p-4"
+          className="w-full bg-gray-700 border-black my-3 p-2 md:my-4 md:p-4"
           type="password"
           placeholder="Password"
         />
         <p className="text-red-700">{errorMessage}</p>
         <button
-          className="w-full bg-red-700 my-4 p-4 text-center rounded-lg"
+          className="w-full bg-red-700 my-3 p-2 md:my-4 md:p-4 text-center rounded-lg"
           onClick={handleButtonClick}
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="my-2 cursor-pointer" onClick={toggleForm}>
+        <p
+          className="my-2 cursor-pointer text-xs md:text-xl"
+          onClick={toggleForm}
+        >
           {isSignInForm
             ? "New to Netflix? Sign Up now"
             : "Already registered? Sign In now"}
