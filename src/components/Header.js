@@ -5,12 +5,20 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser, removeUser } from "../utils/UserSlice";
-import { DEFAULT_AVATAR_URL, NETFLIX_LOGO } from "../utils/constants";
+import { changeLanguage } from "../utils/ConfigSlice";
+import {
+  DEFAULT_AVATAR_URL,
+  NETFLIX_LOGO,
+  SUPPORTED_LANGUAGES,
+} from "../utils/constants";
+import { toggleGPTSearchView } from "../utils/GPTSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
+  const showGPTSearchPage = useSelector((store) => store.gpt.showGPTSearchPage);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -19,6 +27,14 @@ const Header = () => {
       .catch((error) => {
         // An error happened.
       });
+  };
+
+  const handleGPTSearch = () => {
+    dispatch(toggleGPTSearchView());
+  };
+
+  const handleLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
   };
 
   useEffect(() => {
@@ -41,6 +57,28 @@ const Header = () => {
       <img className="w-52" src={NETFLIX_LOGO} alt="Netflix-logo" />
       {user && (
         <div className="flex gap-4 items-center">
+          <div>
+            {showGPTSearchPage && (
+              <select
+                className="p-2 bg-gray-600 text-white"
+                name="language"
+                onChange={handleLanguageChange}
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.identifier} value={lang.identifier}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+
+          <button
+            className="bg-purple-600 text-white px-4 py-2 rounded-md"
+            onClick={handleGPTSearch}
+          >
+            GPT search
+          </button>
           <img
             className="w-16 my-2
           "

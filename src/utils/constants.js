@@ -22,3 +22,9 @@ export const GET_MOVIE_URL =
 export const MOVIE_POSTER_CDN_URL = "https://image.tmdb.org/t/p/w500/";
 
 export const POPULAR_MOVIE_URL = "https://api.themoviedb.org/3/movie/popular";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hin", name: "Hindi" },
+  { identifier: "spa", name: "Spanish" },
+];
